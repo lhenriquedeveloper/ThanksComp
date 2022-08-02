@@ -5,15 +5,14 @@
     justify-content: center
     align-items: center
     .login-box
-        top: 125px
+        top: 130px
         width: 600px
-        height: 760px
+        height: 820px
         background: #fff
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
         img
-            margin-left: 3.2rem
             position: absolute
-            width: 500px
+            width: 600px
             height: 500px
             background: #fff
         h2
@@ -25,9 +24,10 @@
             font-style: italic
             font-weight: 400
             font-size: 30px
-            text-decoration: underline
+            text-decoration: none
             line-height: 30px
             color: #13131A
+
         input
             left: calc(50% - 448px/2 - 12px)
             top: calc(50% - 62px/2 + 56px)
@@ -37,23 +37,26 @@
             background: #FFFFFF
             border: 2px solid #097969
             border-radius: 8px
-            font-family: 'Roboto'
+            font-family: 'Comfortaa', cursive
             font-style: italic
             font-weight: 400
-            font-size: 18px
+            font-size: 16px
             line-height: 21px
             margin-bottom: 1rem
             padding: 8px
+            z-index: 1
+            &:focus
+                outline-color: #00A36C !important
         .btn-box
             display: flex
             justify-content: space-between
-            margin-top: 390px
+            margin-top: 380px
             background: #fff
-            padding: 3.7rem
+            padding: 3rem
         button
             border: none
-            font-family: 'Roboto Flex'
-            font-size: 16px
+            font-family: 'Comfortaa', cursive
+            font-size: 14px
             font-weight: bold
             line-height: 36px
             color: #fff
@@ -63,6 +66,18 @@
             height: 50px
             background: #097969
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)
-            transition: ease-in-out 0.7s
+            transition: ease-in-out 0.6s
             &:hover
                 background-color: #00A36C
+        .google-btn
+            display: flex
+            background-color: #fff
+            #google-id
+                width: 480px
+                margin-left: 3rem
+            .google-icon
+                border: none
+                padding: .5rem 1.5rem
+                width: 55px
+                height: 30px
+                background: #D9D9D9

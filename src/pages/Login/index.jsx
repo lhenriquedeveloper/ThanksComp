@@ -1,5 +1,6 @@
 import '../../styles/login.sass'
 import Logo from '../../assets/imgs/ThanksCompLogo.png'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function Login() {
     return (
@@ -12,6 +13,11 @@ export default function Login() {
                 <div className='btn-box'>
                     <div className='register-btn'><button>Cadastre-se</button></div>
                     <div className='login-btn'><button>Logar</button></div>
+                </div>
+                <div className='google-btn'>
+                    <button id='google-id'>
+                        <div className='google-icon'><FcGoogle size={35} /></div>
+                    </button>
                 </div>
             </div>
         </div>
