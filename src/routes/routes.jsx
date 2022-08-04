@@ -1,5 +1,8 @@
 import { Routes as Router, Route } from "react-router-dom"
-import { lazy, Suspense } from "react"
+import { lazy, Suspense, useContext, useEffect } from "react"
+import { AuthContext } from "../contexts/auth";
+import { Navigate } from "react-router-dom";
+
 
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
@@ -11,6 +14,16 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 
 
 export default function Routes() {
+
+    const { storageUser } = useContext(AuthContext);
+
+    const ProtectedRoute = ({ children }) => {
+        if (storageUser == null) {
+            return <Navigate to="/" replace />
+        }
+        return children;
+    }
+
     return (
         <div>
             <Suspense fallback={
@@ -21,10 +34,10 @@ export default function Routes() {
                 <Router>
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/register" element={<Register />} />
-                    <Route exact path="/dash" element={<Dashboard />} />
-                    <Route exact path="/post" element={<Post />} />
-                    <Route exact path="/MyPosts" element={<MyPosts />} />
-                    <Route exact path="/Profile" element={<Profile />} />
+                    <Route exact path="/dash" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route exact path="/post" element={<ProtectedRoute><Post /></ProtectedRoute>} />
+                    <Route exact path="/MyPosts" element={<ProtectedRoute><MyPosts /></ProtectedRoute>} />
+                    <Route exact path="/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route exact path="*" element={<NotFound />} />
                 </Router>
             </Suspense>
