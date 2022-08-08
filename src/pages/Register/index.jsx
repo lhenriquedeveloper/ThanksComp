@@ -1,6 +1,14 @@
 import '../../styles/register.sass'
 import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import LargeButton from '../../components/LargeButton';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../contexts/auth';
+import CenterBox from '../../components/CenterBox';
+import NumberFormat from 'react-number-format';
+import { toast } from 'react-toastify';
+
+
 
 export default function Register() {
     const [fullname, setFullname] = useState('');
@@ -23,17 +31,22 @@ export default function Register() {
             setNumber('');
             setUf('');
             setCity('');
-            <Navigate to="/" replace />
         }
         else {
-            toast.error('Preencha todos os campos!', {
-                position: "top-center",
-                hideProgressBar: true,
+            toast.warning('Preencha todos os campos!', {
+                theme: "colored",
+                position: "top-left",
+                hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,
+                icon: "⚠️",
+                draggable: "true"
             });
+
         }
     }
+
+
 
     return (
         <div>
@@ -45,13 +58,13 @@ export default function Register() {
                         <Link to="/"><AiOutlineArrowLeft size={20} /> Voltar para o logon</Link>
                     </div>
                     <div className='form-space'>
-                        <input type="text" name="fullname" id="fullname" placeholder='Nome Completo:' onChange={(e) => { setFullname(e.target.value) }} />
-                        <input type="email" name="email" id="email" placeholder='E-mail:' onChange={(e) => { setEmail(e.target.value) }} />
-                        <input type="password" name="password" id="password" placeholder='Senha:' onChange={(e) => { setPassword(e.target.value) }} />
-                        <input type="text" name="number" id="number" placeholder='WhatsApp:' onChange={(e) => { setNumber(e.target.value) }} />
-                        <input className='city-input' type="text" name="city" id="city" placeholder='Cidade:' onChange={(e) => { setCity(e.target.value) }} />
-                        <input className='uf-input' type="text" name="uf" id="uf" placeholder='UF:' onChange={(e) => { setUf(e.target.value) }} />
-                        <button type='submit' onClick={handleSubmit}>Cadastrar</button>
+                        <input type="text" name="fullname" required id="fullname" placeholder='Nome Completo:' value={fullname} onChange={(e) => { setFullname(e.target.value) }} />
+                        <input type="email" name="email" required id="email" placeholder='E-mail:' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                        <input type="password" name="password" required id="password" placeholder='Senha:' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                        <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="WhatsApp" value={number} onChange={e => { setNumber(e.target.value) }} />
+                        <input className='city-input' type="text" required name="city" id="city" placeholder='Cidade:' value={city} onChange={(e) => { setCity(e.target.value) }} />
+                        <input className='uf-input' maxLength="2" type="text" required name="uf" id="uf" placeholder='UF:' value={uf} onChange={(e) => { setUf(e.target.value) }} />
+                        <LargeButton name="Cadastrar" dothis={handleSubmit} />
                     </div>
                 </CenterBox>
             </div>
