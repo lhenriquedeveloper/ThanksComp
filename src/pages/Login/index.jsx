@@ -1,5 +1,5 @@
 import '../../styles/login.sass'
-import Logo from '../../assets/imgs/ThanksCompLogo.png'
+import Logo from '../../assets/imgs/ThanksComp Logo.svg'
 import SmallButton from '../../components/SmallButton'
 import { FcGoogle } from 'react-icons/fc'
 import { useNavigate } from 'react-router-dom'

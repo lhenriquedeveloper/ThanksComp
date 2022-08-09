@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext({});
 function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
     let navigate = useNavigate();
 
@@ -139,6 +139,7 @@ function AuthProvider({ children }) {
         localStorage.removeItem('SystemUser');
         setUser(null);
     }
+
 
     return (
         <AuthContext.Provider

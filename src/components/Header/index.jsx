@@ -10,9 +10,11 @@ export default function Header() {
     const { user } = useContext(AuthContext);
 
     return (
+
         <div className="sidebar">
             <div>
                 <img src={user.avatarUrl === null ? avatarDefault : user.avatarUrl} alt="Foto de Avatar" />
+                <p>Bem vindo(a) {user.fullname} </p>
             </div>
             <Link to="/dashboard">
                 <FiHome size={24} />
@@ -30,4 +32,5 @@ export default function Header() {
             </Link>
         </div>
     )
+
 }
