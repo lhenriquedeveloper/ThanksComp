@@ -1,12 +1,15 @@
+import React from "react";
 import { createContext, useState, useEffect } from "react";
 import firebase from "../services/firebaseConnection";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 export const AuthContext = createContext({});
-
 function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
+    let navigate = useNavigate();
 
     //LocalStorage Verification
     useEffect(() => {
@@ -20,8 +23,8 @@ function AuthProvider({ children }) {
     }, [])
 
     // Standard Login
-    async function signIn(mail, password) {
-        await firebase.auth().signInWithEmailAndPassword(mail, password)
+    async function signIn(email, password) {
+        await firebase.auth().signInWithEmailAndPassword(email, password)
             .then(async (value) => {
                 let uid = value.user.uid;
                 let email = value.user.email;
@@ -47,22 +50,17 @@ function AuthProvider({ children }) {
                 setUser(data);
                 storageUser(safeData);
 
-                toast.success('Bem vindo ao ThanksComp', {
-                    theme: "dark",
-                    position: "top-center",
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                })
             })
             .catch((error) => {
                 console.log(error);
-                toast.error('Algo deu errado !', {
-                    theme: "light",
-                    position: "top-center",
+                toast.error('Algo de errado aconteceu', {
+                    theme: 'colored',
+                    position: "top-left",
                     hideProgressBar: false,
                     closeOnClick: true,
-                    pauseOnHover: true,
+                    pauseOnHover: false,
+                    draggable: "true",
+                    icon: "❌",
                 });
             })
     }
@@ -105,23 +103,27 @@ function AuthProvider({ children }) {
 
                         setUser(data);
                         storageUser(safeData);
-
-                        toast.success('Cadastro realizado com sucesso', {
-                            theme: "dark",
-                            position: "top-center",
+                        toast.success('Cadastro realizado com sucesso!', {
+                            theme: "colored",
+                            position: "top-left",
                             hideProgressBar: false,
                             closeOnClick: true,
-                            pauseOnHover: true,
+                            pauseOnHover: false,
+                            draggable: "true",
+                            icon: "✅",
                         });
+                        navigate("/");
                     })
                     .catch((error) => {
                         console.log(error);
-                        toast.error('Algo deu errado !', {
-                            theme: "light",
-                            position: "top-center",
+                        toast.error('Algo de errado aconteceu', {
+                            theme: "colored",
+                            position: "top-left",
                             hideProgressBar: false,
                             closeOnClick: true,
-                            pauseOnHover: true,
+                            pauseOnHover: false,
+                            draggable: "true",
+                            icon: "❌",
                         });
                     })
             })
@@ -137,6 +139,7 @@ function AuthProvider({ children }) {
         localStorage.removeItem('SystemUser');
         setUser(null);
     }
+
 
     return (
         <AuthContext.Provider

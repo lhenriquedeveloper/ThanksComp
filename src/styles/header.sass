@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap')
+.sidebar
+    margin: 0
+    padding: 0
+    width: 200px
+    background-color: #2E8B57
+    position: fixed
+    height: 100%
+    overflow: auto
+    div
+        background-color: #2E8B57
+        height: 150px
+        padding-top: 30px
+        img
+            border-radius: 50%
+            display: block
+            margin: auto
+            width: 90px
+            height: 90px
+            -webkit-filter: drop-shadow(2px 3px 6px #121212)
+            filter: drop-shadow(2px 3px 6px #121212)
+            object-fit: cover
+        p
+            font-size: 14px
+            font-family: 'Roboto', sans-serif
+            text-align: center
+            color: #EFEFEF
+            margin: 1rem 0rem 0rem 0rem
+    a
+        font-family: 'Comfortaa', cursive
+        font-style: italic
+        font-weight: 400
+        font-size: 14px
+        border-radius: 3px
+        text-decoration: none
+        display: block
+        background-color: #00A36C
+        color: #fff
+        padding: 18px
+        display: flex
+        flex-direction: row
+        align-items: center
+        transition: ease-in-out .7s
+        margin-top: 1rem
+
+        &:hover
+            background-color: #097969
+        svg
+            margin-right: 1em
+.content
+    margin-left: 200px
+    padding: 1px 16px
+
+@media screen and (max-width:700px)
+    .sidebar
+        width: 100%
+        height: auto
+        position: relative
+        div
+            display: none
+        a
+            float: left
+            svg
+                display: none
+    .content
+        margin-left: 0
+@media screen and (max-width:400px)
+    .sidebar
+        a
+            text-align: center
+            float: none
+            svg
+                display: none
+    .content
+        margin-left: 0
