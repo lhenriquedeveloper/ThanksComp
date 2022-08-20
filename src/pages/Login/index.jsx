@@ -1,16 +1,14 @@
-import '../../styles/login.sass'
+import './login.sass'
 import Logo from '../../assets/imgs/ThanksComp Logo.svg'
 import SmallButton from '../../components/SmallButton'
 import { FcGoogle } from 'react-icons/fc'
-import { useNavigate } from 'react-router-dom'
 import LargeButton from '../../components/LargeButton';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { toast } from 'react-toastify';
 
 export default function Login() {
-    let navigate = useNavigate();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -21,16 +19,6 @@ export default function Login() {
             signIn(email, password);
             setEmail('');
             setPassword('');
-            navigate("/dash");
-            toast('Bem vindo ao ThanksComp !', {
-                theme: "dark",
-                position: "top-center",
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                icon: "😁",
-                draggable: "true"
-            });
         }
         else {
             toast.warning('Preencha todos os campos!', {
@@ -46,6 +34,11 @@ export default function Login() {
         }
     }
 
+    function handleGoogleSubmit(e) {
+        e.preventDefault();
+        googleSignIn();
+    }
+
     return (
         <div className='login-container'>
             <div className='login-box'>
@@ -57,7 +50,7 @@ export default function Login() {
                     <div className='register-btn'><SmallButton name="Cadastrar" dothis={() => { navigate("/register") }} /></div>
                     <div className='login-btn'><SmallButton name="Logar" dothis={handleSubmit} /></div>
                 </div>
-                <LargeButton name="Continuar com o Google">
+                <LargeButton dothis={handleGoogleSubmit} name="Continuar com o Google">
                     <FcGoogle size={30} className='google-icon' />
                 </LargeButton>
             </div>

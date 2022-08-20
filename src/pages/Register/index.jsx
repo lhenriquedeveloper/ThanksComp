@@ -1,4 +1,4 @@
-import '../../styles/register.sass'
+import './register.sass'
 import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import LargeButton from '../../components/LargeButton';

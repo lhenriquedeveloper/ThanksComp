@@ -1,4 +1,4 @@
-import "../../styles/centerbox.sass";
+import "./centerbox.sass";
 
 export default function CenterBox({ children }) {
     return (

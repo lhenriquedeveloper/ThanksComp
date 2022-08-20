@@ -1,4 +1,4 @@
-import "../../styles/smallbutton.sass";
+import "./smallbutton.sass";
 
 export default function SmallButton({ name, children, dothis }) {
     return (

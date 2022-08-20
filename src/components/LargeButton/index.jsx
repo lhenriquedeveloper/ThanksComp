@@ -1,4 +1,4 @@
-import "../../styles/largebutton.sass";
+import "./largebutton.sass";
 
 export default function LargeButton({ name, children, dothis }) {
     return (

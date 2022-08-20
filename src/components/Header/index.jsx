@@ -1,4 +1,4 @@
-import '../../styles/header.sass';
+import './header.sass';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import avatarDefault from '../../assets/imgs/avatar.png';

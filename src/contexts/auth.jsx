@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 
+
 export const AuthContext = createContext({});
 function AuthProvider({ children }) {
     const [user, setUser] = useState('');
@@ -42,13 +43,23 @@ function AuthProvider({ children }) {
                 }
 
                 let safeData = {
-                    uid: uid,
+                    fullname: userProfile.data().fullname,
                     email: userProfile.data().email,
                     avatarUrl: userProfile.data().avatarUrl,
                 }
 
                 setUser(data);
                 storageUser(safeData);
+                navigate("/dash");
+                toast('Bem vindo ao ThanksComp !', {
+                    theme: "dark",
+                    position: "top-center",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    icon: "😁",
+                    draggable: "true"
+                });
 
             })
             .catch((error) => {
@@ -65,8 +76,67 @@ function AuthProvider({ children }) {
             })
     }
 
-    //Standard Register
 
+    // Google Autentication
+
+    async function googleSignIn() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await firebase.auth().signInWithPopup(provider)
+            .then(async (value) => {
+                let idToken = value.credential.idToken;
+                let accessToken = value.credential.accessToken;
+                let fullname = value.user.displayName;
+                let email = value.user.email;
+                let avatarUrl = value.user.photoURL;
+                let number = value.user.phoneNumber;
+
+                let data = {
+                    accessToken: accessToken,
+                    idToken: idToken,
+                    email: email,
+                    fullname: fullname,
+                    avatarUrl: avatarUrl,
+                    number: number,
+                }
+
+                let safeData = {
+                    fullname: fullname,
+                    email: email,
+                    avatarUrl: avatarUrl,
+                }
+
+                setUser(data);
+                storageUser(safeData);
+                navigate("/dash");
+                toast('Bem vindo ao ThanksComp !', {
+                    theme: "dark",
+                    position: "top-center",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    icon: "😁",
+                    draggable: "true"
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Algo de errado aconteceu', {
+                    theme: 'colored',
+                    position: "top-left",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: "true",
+                    icon: "❌",
+                });
+            })
+    }
+
+
+
+
+
+    //Standard Register
     async function signUp(email, password, fullname, number, uf, city) {
 
         await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -150,6 +220,7 @@ function AuthProvider({ children }) {
                     signUp,
                     signOut,
                     signIn,
+                    googleSignIn,
                     setUser,
                     storageUser
                 }
