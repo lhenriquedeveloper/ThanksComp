@@ -61,7 +61,7 @@ export default function Register() {
                         <input type="text" name="fullname" required id="fullname" placeholder='Nome Completo:' value={fullname} onChange={(e) => { setFullname(e.target.value) }} />
                         <input type="email" name="email" required id="email" placeholder='E-mail:' value={email} onChange={(e) => { setEmail(e.target.value) }} />
                         <input type="password" name="password" required id="password" placeholder='Senha:' value={password} onChange={(e) => { setPassword(e.target.value) }} />
-                        <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="WhatsApp" value={number} onChange={e => { setNumber(e.target.value) }} />
+                        <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="Contato:" value={number} onChange={e => { setNumber(e.target.value) }} />
                         <input className='city-input' type="text" required name="city" id="city" placeholder='Cidade:' value={city} onChange={(e) => { setCity(e.target.value) }} />
                         <input className='uf-input' maxLength="2" type="text" required name="uf" id="uf" placeholder='UF:' value={uf} onChange={(e) => { setUf(e.target.value) }} />
                         <LargeButton name="Cadastrar" dothis={handleSubmit} />

@@ -83,16 +83,15 @@ function AuthProvider({ children }) {
         const provider = new firebase.auth.GoogleAuthProvider();
         await firebase.auth().signInWithPopup(provider)
             .then(async (value) => {
-                let idToken = value.credential.idToken;
-                let accessToken = value.credential.accessToken;
+                console.log(value)
+                let uid = value.user.uid;
                 let fullname = value.user.displayName;
                 let email = value.user.email;
                 let avatarUrl = value.user.photoURL;
                 let number = value.user.phoneNumber;
 
                 let data = {
-                    accessToken: accessToken,
-                    idToken: idToken,
+                    uid: uid,
                     email: email,
                     fullname: fullname,
                     avatarUrl: avatarUrl,
@@ -208,6 +207,7 @@ function AuthProvider({ children }) {
         await firebase.auth().signOut();
         localStorage.removeItem('SystemUser');
         setUser(null);
+        navigate('/');
     }
 
 

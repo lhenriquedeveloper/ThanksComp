@@ -6,8 +6,10 @@ import LargeButton from '../../components/LargeButton';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const navigate = useNavigate();
     const { signIn, googleSignIn } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
