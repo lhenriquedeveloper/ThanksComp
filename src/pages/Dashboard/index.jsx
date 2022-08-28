@@ -5,9 +5,12 @@ import { AiOutlinePoweroff } from "react-icons/ai"
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth'
+import { useNavigate } from 'react-router-dom'
+
 export default function Dashboard() {
     const { signOut } = useContext(AuthContext);
     const [datatest, setDatatest] = useState([]);
+    const navigate = useNavigate();
     const getData = () => {
         fetch('datatest.json'
             , {
@@ -34,7 +37,7 @@ export default function Dashboard() {
             <Header />
             <div className="nav">
                 <div className="nav_publibtn">
-                    <SmallButton>Publicar</SmallButton>
+                    <SmallButton dothis={() => { navigate("/post") }}>Publicar</SmallButton>
                 </div>
                 <div className="nav_logoutbtn">
                     <button onClick={signOut}><AiOutlinePoweroff size={20} /></button>
