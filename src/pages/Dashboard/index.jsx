@@ -6,31 +6,50 @@ import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth'
 import { useNavigate } from 'react-router-dom'
+import firebase from '../../services/firebaseConnection';
+
+const dbRef = await firebase.firestore()
 
 export default function Dashboard() {
-    const { signOut } = useContext(AuthContext);
-    const [datatest, setDatatest] = useState([]);
+    const { signOut, user } = useContext(AuthContext);
+    const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const getData = () => {
-        fetch('datatest.json'
-            , {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }
-        )
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (myJson) {
-                setDatatest(myJson.data)
-            });
-    }
+
 
     useEffect(() => {
-        getData();
-    }, [])
+        loadPosts();
+        return () => {
+
+        }
+    }, []);
+
+    // async function loadPosts() {
+    //     dbRef.collection("posts").where("email", "!=", null)
+    //         .get()
+    //         .then((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 console.log(doc.id, " => ", doc.data());
+    //             });
+    //         })
+    //         .catch((error) => {
+    //             console.log("Error getting documents: ", error);
+    //         });
+    // }
+
+
+    // async function updateState(snapshot) {
+    //     const isCollectionEmpty = snapshot.size === 0;
+    //     if(!isCollectionEmpty){
+    //         let list = [];
+
+    //         snapshot.forEach((doc)=>{
+    //             list.push({
+    //                 doc.
+    //             })
+    //         })
+    //     }
+    // }
+
 
     return (
         <div>
@@ -45,7 +64,7 @@ export default function Dashboard() {
             </div>
             <div className="content">
                 <div className="content_cards">
-                    {
+                    {/* {
                         datatest.map((data) => {
                             return (
                                 <article>
@@ -56,7 +75,7 @@ export default function Dashboard() {
                                 </article>
                             );
                         })
-                    }
+                    } */}
                 </div>
             </div>
         </div>

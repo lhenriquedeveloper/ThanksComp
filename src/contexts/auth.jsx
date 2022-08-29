@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, } from "react";
 import firebase from "../services/firebaseConnection";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -9,19 +9,8 @@ import { useNavigate } from 'react-router-dom';
 export const AuthContext = createContext({});
 function AuthProvider({ children }) {
     const [user, setUser] = useState('');
-    const [loading, setLoading] = useState(true);
     let navigate = useNavigate();
 
-    //LocalStorage Verification
-    useEffect(() => {
-        function loadStorage() {
-            const storageUser = localStorage.getItem('SystemUser');
-            if (storageUser) {
-                setUser(JSON.parse(SystemUser));
-                setLoading(false);
-            }
-        }
-    }, [])
 
     // Standard Login
     async function signIn(email, password) {
@@ -42,14 +31,7 @@ function AuthProvider({ children }) {
                     uf: userProfile.data().uf,
                 }
 
-                let safeData = {
-                    fullname: userProfile.data().fullname,
-                    email: userProfile.data().email,
-                    avatarUrl: userProfile.data().avatarUrl,
-                }
-
                 setUser(data);
-                storageUser(safeData);
                 navigate("/dash");
                 toast('Bem vindo ao ThanksComp !', {
                     theme: "dark",
@@ -78,7 +60,6 @@ function AuthProvider({ children }) {
 
 
     // Google Autentication
-
     async function googleSignIn() {
         const provider = new firebase.auth.GoogleAuthProvider();
         await firebase.auth().signInWithPopup(provider)
@@ -98,14 +79,7 @@ function AuthProvider({ children }) {
                     number: number,
                 }
 
-                let safeData = {
-                    fullname: fullname,
-                    email: email,
-                    avatarUrl: avatarUrl,
-                }
-
                 setUser(data);
-                storageUser(safeData);
                 navigate("/dash");
                 toast('Bem vindo ao ThanksComp !', {
                     theme: "dark",
@@ -130,17 +104,11 @@ function AuthProvider({ children }) {
                 });
             })
     }
-
-
-
-
-
     //Standard Register
     async function signUp(email, password, fullname, number, uf, city) {
 
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(async (value) => {
-
                 let uid = value.user.uid;
                 let email = value.user.email
 
@@ -164,14 +132,7 @@ function AuthProvider({ children }) {
                             avatarUrl: null
                         }
 
-                        let safeData = {
-                            uid: uid,
-                            email: email,
-                            avatarUrl: null
-                        }
-
                         setUser(data);
-                        storageUser(safeData);
                         toast.success('Cadastro realizado com sucesso!', {
                             theme: "colored",
                             position: "top-left",
@@ -198,14 +159,10 @@ function AuthProvider({ children }) {
             })
     }
 
-    //LocalStorage Set
-    function storageUser(data) {
-        localStorage.setItem('SystemUser', JSON.stringify(data))
-    }
+
     //Logout
     async function signOut() {
         await firebase.auth().signOut();
-        localStorage.removeItem('SystemUser');
         setUser(null);
         navigate('/');
     }
@@ -216,13 +173,11 @@ function AuthProvider({ children }) {
             value={
                 {
                     user,
-                    loading,
                     signUp,
                     signOut,
                     signIn,
                     googleSignIn,
                     setUser,
-                    storageUser
                 }
             }
         >

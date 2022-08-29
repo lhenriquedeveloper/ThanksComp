@@ -15,10 +15,11 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 
 export default function Routes() {
 
-    const { storageUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const ProtectedRoute = ({ children }) => {
-        if (storageUser == null) {
+        console.log(user);
+        if (user === null || user === "") {
             return <Navigate to="/" replace />
         }
         return children;
