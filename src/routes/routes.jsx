@@ -1,8 +1,7 @@
 import { Routes as Router, Route } from "react-router-dom"
-import { lazy, Suspense, useContext, useEffect } from "react"
-import { AuthContext } from "../contexts/auth";
+import { lazy, Suspense, useContext } from "react"
 import { Navigate } from "react-router-dom";
-
+import { AuthContext } from "../contexts/auth";
 
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
@@ -12,14 +11,13 @@ const MyPosts = lazy(() => import('../pages/MyPosts'));
 const Profile = lazy(() => import('../pages/Profile'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
-
 export default function Routes() {
 
     const { user } = useContext(AuthContext);
 
     const ProtectedRoute = ({ children }) => {
         console.log(user);
-        if (user === null || user === "") {
+        if (!user) {
             return <Navigate to="/" replace />
         }
         return children;

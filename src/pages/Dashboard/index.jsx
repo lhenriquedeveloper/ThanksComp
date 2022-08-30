@@ -8,10 +8,10 @@ import { AuthContext } from '../../contexts/auth'
 import { useNavigate } from 'react-router-dom'
 import firebase from '../../services/firebaseConnection';
 
-const dbRef = await firebase.firestore()
+const dbRef = await firebase.firestore().collection('posts').orderBy('userUid', 'desc')
 
 export default function Dashboard() {
-    const { signOut, user } = useContext(AuthContext);
+    const { signOut } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
@@ -19,36 +19,27 @@ export default function Dashboard() {
     useEffect(() => {
         loadPosts();
         return () => {
-
         }
     }, []);
 
-    // async function loadPosts() {
-    //     dbRef.collection("posts").where("email", "!=", null)
-    //         .get()
-    //         .then((querySnapshot) => {
-    //             querySnapshot.forEach((doc) => {
-    //                 console.log(doc.id, " => ", doc.data());
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.log("Error getting documents: ", error);
-    //         });
-    // }
+    async function loadPosts() {
+        await dbRef.onSnapshot((doc) => {
+            let posts = [];
+            doc.forEach((item) => {
+                posts.push({
+                    responsible: item.data().responsible,
+                    description: item.data().description,
+                    email: item.data().email,
+                    imgUrl: item.data().imgUrl,
+                    number: item.data().number,
+                    userUid: item.data().userUid,
+                })
+            })
+            setData(posts);
+            console.log(data);
+        })
+    }
 
-
-    // async function updateState(snapshot) {
-    //     const isCollectionEmpty = snapshot.size === 0;
-    //     if(!isCollectionEmpty){
-    //         let list = [];
-
-    //         snapshot.forEach((doc)=>{
-    //             list.push({
-    //                 doc.
-    //             })
-    //         })
-    //     }
-    // }
 
 
     return (
@@ -64,18 +55,18 @@ export default function Dashboard() {
             </div>
             <div className="content">
                 <div className="content_cards">
-                    {/* {
-                        datatest.map((data) => {
+                    {
+                        data.map((data, index) => {
                             return (
-                                <article>
-                                    <img src={data.img} alt="Componente" />
+                                <article key={index}>
+                                    <img src={data.imgUrl} alt="Componente" />
                                     <strong>Responsável:</strong>
-                                    <p>{data.resp}</p>
+                                    <p>{data.responsible}</p>
                                     <button>Ver Publi.</button>
                                 </article>
                             );
                         })
-                    } */}
+                    }
                 </div>
             </div>
         </div>
