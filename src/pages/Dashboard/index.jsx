@@ -8,13 +8,10 @@ import { AuthContext } from '../../contexts/auth'
 import { useNavigate } from 'react-router-dom'
 import firebase from '../../services/firebaseConnection';
 
-const dbRef = await firebase.firestore().collection('posts').orderBy('userUid', 'desc')
-
 export default function Dashboard() {
     const { signOut } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         loadPosts();
@@ -23,7 +20,8 @@ export default function Dashboard() {
     }, []);
 
     async function loadPosts() {
-        await dbRef.onSnapshot((doc) => {
+        const dbRef = firebase.firestore().collection('posts').orderBy('userUid', 'desc')
+        dbRef.onSnapshot((doc) => {
             let posts = [];
             doc.forEach((item) => {
                 posts.push({
@@ -36,7 +34,6 @@ export default function Dashboard() {
                 })
             })
             setData(posts);
-            console.log(data);
         })
     }
 
@@ -57,11 +54,12 @@ export default function Dashboard() {
                 <div className="content_cards">
                     {
                         data.map((data, index) => {
+                            const strRes = data.responsible.split(" ")
                             return (
                                 <article key={index}>
                                     <img src={data.imgUrl} alt="Componente" />
                                     <strong>Responsável:</strong>
-                                    <p>{data.responsible}</p>
+                                    <p>{strRes[0]}</p>
                                     <button>Ver Publi.</button>
                                 </article>
                             );

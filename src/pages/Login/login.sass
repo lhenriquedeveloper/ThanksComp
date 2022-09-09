@@ -1,26 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
-.login-container
+.general-login
     display: flex
-    flex-direction: row
     justify-content: center
-    align-items: center
+    .login-container
+        display: flex
+        margin-top: 1rem
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        width: 1366px
+        height: 900px
+        background-color: #fff
+        filter: drop-shadow(0px 24px 44px rgba(2, 84, 106, 0.1))
+        border-radius: 30px
     .login-box
-        top: 70px
         width: 600px
-        height: 820px
+        height: 100%
         background: #fff
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+        border-radius: 30px 0px 0px 30px
         img
-            margin-bottom: 1px
             position: absolute
-            width: 600px
-            height: 470px
+            width: 238px
+            height: 59px
+            left: 10px
+            top: 30px
         h2
             width: 500px
             background: none
-            left: calc(50% - 204px/2 - 135px)
-            top: calc(52.5% - 8px/2 - 7px)
+            left: calc(70% - 204px/2 - 135px)
+            top: calc(30% - 8px/2 - 7px)
             font-family: 'Comfortaa', cursive
             font-style: italic
             font-weight: 400
@@ -28,10 +37,9 @@
             text-decoration: none
             line-height: 30px
             color: #13131A
-
         input
             left: calc(50% - 448px/2 - 12px)
-            top: calc(50% - 62px/2 + 56px)
+            top: calc(30% - 62px/2 + 56px)
             box-sizing: border-box
             width: 470px
             height: 55px
@@ -51,7 +59,7 @@
         .btn-box
             display: flex
             justify-content: space-between
-            margin-top: 370px
+            margin-top: 250px
             background: #fff
             padding: 5rem 5rem 2rem 5rem
     button.large
@@ -60,6 +68,14 @@
         background: none
         top: 5px
         margin: 0rem 1rem 0rem 0rem
+    .imagebox
+        margin: 0
+        padding: 0
+        background: #cbddd1
+        border-radius: 0px 30px 30px 0px
+        img
+            margin: 0
+            padding: 0
 
 @media (max-width: 600px)
     button.large

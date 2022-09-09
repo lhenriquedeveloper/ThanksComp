@@ -1,12 +1,13 @@
 import './login.sass'
-import Logo from '../../assets/imgs/ThanksComp Logo.svg'
 import SmallButton from '../../components/SmallButton'
-import { FcGoogle } from 'react-icons/fc'
+import { SiGoogle } from 'react-icons/si'
 import LargeButton from '../../components/LargeButton';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import LoginScreen from '../../assets/imgs/loginscreen.svg';
+import TC from '../../assets/imgs/logotc.svg';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -42,19 +43,26 @@ export default function Login() {
     }
 
     return (
-        <div className='login-container'>
-            <div className='login-box'>
-                <img src={Logo} alt="Logo ThanksComp" />
-                <h2>Faça seu logon:</h2>
-                <input type="email" name="email" id="email" value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder='Digite seu e-mail:' />
-                <input type="password" name="password" id="password" value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder='Digite sua senha:' />
-                <div className='btn-box'>
-                    <div className='register-btn'><SmallButton name="Cadastrar" dothis={() => { navigate("/register") }} /></div>
-                    <div className='login-btn'><SmallButton name="Logar" dothis={handleSubmit} /></div>
+        <div className="general-login">
+            <div className='login-container'>
+                <div className='login-box'>
+                    <img src={TC} alt="TC Logo" />
+                    <h2>
+                        Faça seu Login:
+                    </h2>
+                    <input type="email" name="email" id="email" value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder='Digite seu e-mail:' />
+                    <input type="password" name="password" id="password" value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder='Digite sua senha:' />
+                    <div className='btn-box'>
+                        <div className='register-btn'><SmallButton name="Cadastrar" dothis={() => { navigate("/register") }} /></div>
+                        <div className='login-btn'><SmallButton name="Logar" dothis={handleSubmit} /></div>
+                    </div>
+                    <LargeButton dothis={handleGoogleSubmit} name="Continuar com o Google">
+                        <SiGoogle size={24} className='google-icon' />
+                    </LargeButton>
                 </div>
-                <LargeButton dothis={handleGoogleSubmit} name="Continuar com o Google">
-                    <FcGoogle size={30} className='google-icon' />
-                </LargeButton>
+                <div className="imagebox">
+                    <img src={LoginScreen} alt="LoginScreen" />
+                </div>
             </div>
         </div>
     )

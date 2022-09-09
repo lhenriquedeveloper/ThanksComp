@@ -2,7 +2,6 @@
     position: absolute
     left: 374px
     top: 32px
-
 .nav_logoutbtn
     position: absolute
     left: 573px
@@ -13,14 +12,13 @@
         border: 1px solid #097969
         border-radius: 8px
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
-        opacity: 0.5
         transition: ease-in-out 0.8s
         &:hover
-            opacity: 1
-            box-shadow: 1px 1px #097969
-            -webkit-transform: translateX(-3px)
-            transform: translateX(-3px)
+            border: 1px solid red
+            svg
+                color: red
         svg
+            transition: ease-in-out 0.8s
             color: #00A000
 
 .content_cards
@@ -28,6 +26,7 @@
     left: 600px
     top: 80px
     article
+        border-radius: 8px
         margin-top: 45px
         margin-bottom: 45px
         width: 545px

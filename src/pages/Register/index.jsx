@@ -8,8 +8,6 @@ import CenterBox from '../../components/CenterBox';
 import NumberFormat from 'react-number-format';
 import { toast } from 'react-toastify';
 
-
-
 export default function Register() {
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
@@ -22,7 +20,6 @@ export default function Register() {
 
     function handleSubmit(e) {
         e.preventDefault();
-
         if (fullname !== '' && email !== '' & password !== '' & number !== '' & city !== '' & uf !== '') {
             signUp(email, password, fullname, number, uf, city);
             setEmail('');
@@ -45,8 +42,6 @@ export default function Register() {
 
         }
     }
-
-
 
     return (
         <div>

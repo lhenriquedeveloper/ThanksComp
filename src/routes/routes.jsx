@@ -1,7 +1,8 @@
 import { Routes as Router, Route } from "react-router-dom"
 import { lazy, Suspense, useContext } from "react"
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../contexts/auth";
+import { useAuth } from "../hooks/useAuth";
+
 
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
@@ -11,18 +12,18 @@ const MyPosts = lazy(() => import('../pages/MyPosts'));
 const Profile = lazy(() => import('../pages/Profile'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
-export default function Routes() {
-
-    const { user } = useContext(AuthContext);
-
-    const ProtectedRoute = ({ children }) => {
-        console.log(user);
-        if (!user) {
-            return <Navigate to="/" replace />
-        }
-        return children;
+const ProtectedRoute = ({ children }) => {
+    const user = useAuth();
+    if (user === undefined) {
+        return <div></div>
     }
+    else if (!user) {
+        return <Navigate to="/" replace />
+    }
+    return children;
+}
 
+export default function Routes() {
     return (
         <div>
             <Suspense fallback={
@@ -35,8 +36,8 @@ export default function Routes() {
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/dash" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route exact path="/post" element={<ProtectedRoute><Post /></ProtectedRoute>} />
-                    <Route exact path="/MyPosts" element={<ProtectedRoute><MyPosts /></ProtectedRoute>} />
-                    <Route exact path="/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                    <Route exact path="/myposts" element={<ProtectedRoute><MyPosts /></ProtectedRoute>} />
+                    <Route exact path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route exact path="*" element={<NotFound />} />
                 </Router>
             </Suspense>
