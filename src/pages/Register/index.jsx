@@ -7,6 +7,7 @@ import { AuthContext } from '../../contexts/auth';
 import CenterBox from '../../components/CenterBox';
 import NumberFormat from 'react-number-format';
 import { toast } from 'react-toastify';
+import { PulseLoader } from 'react-spinners';
 
 export default function Register() {
     const [fullname, setFullname] = useState('');
@@ -16,7 +17,7 @@ export default function Register() {
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
 
-    const { signUp } = useContext(AuthContext);
+    const { signUp, loading } = useContext(AuthContext);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -59,7 +60,7 @@ export default function Register() {
                         <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="Contato:" value={number} onChange={e => { setNumber(e.target.value) }} />
                         <input className='city-input' type="text" required name="city" id="city" placeholder='Cidade:' value={city} onChange={(e) => { setCity(e.target.value) }} />
                         <input className='uf-input' maxLength="2" type="text" required name="uf" id="uf" placeholder='UF:' value={uf} onChange={(e) => { setUf(e.target.value) }} />
-                        <LargeButton name="Cadastrar" dothis={handleSubmit} />
+                        <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Cadastrar'} dothis={handleSubmit} />
                     </div>
                 </CenterBox>
             </div>

@@ -10,11 +10,13 @@ export default function Header() {
     if (!user) {
         return <div></div>
     }
+    const firstName = user.displayName.split(" ");
+
     return (
         <div className="sidebar">
             <div>
                 <img src={Boolean(user.photoURL) ? user.photoURL : avatarDefault} alt="Foto de Avatar" />
-                <p>Bem vindo(a) {user.displayName} </p>
+                <p>Bem vindo(a) {firstName[0]}</p>
             </div>
             <Link to="/dash">
                 <FiHome size={35} />

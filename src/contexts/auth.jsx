@@ -3,12 +3,15 @@ import firebase from "../services/firebaseConnection";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
 
 export const AuthContext = createContext({});
 function AuthProvider({ children }) {
+    const [loading, setLoading] = useState(false);
     const user = useAuth();
     let navigate = useNavigate();
     async function signIn(email, password) {
+        setLoading(true);
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(
                 navigate("/dash")
@@ -24,6 +27,7 @@ function AuthProvider({ children }) {
                     draggable: "true",
                 });
             })
+        setLoading(false);
     }
 
 
@@ -47,8 +51,9 @@ function AuthProvider({ children }) {
             })
     }
 
-    //Standard Register
+
     async function signUp(email, password, fullname, number, uf, city) {
+        setLoading(true);
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(async (value) => {
                 let uid = value.user.uid;
@@ -69,7 +74,6 @@ function AuthProvider({ children }) {
                             closeOnClick: true,
                             pauseOnHover: false,
                             draggable: "true",
-                            icon: "✅",
                         });
                         navigate("/");
                     })
@@ -85,6 +89,7 @@ function AuthProvider({ children }) {
                         });
                     })
             })
+        setLoading(false);
     }
     async function signOut() {
         await firebase.auth().signOut();
@@ -95,10 +100,11 @@ function AuthProvider({ children }) {
             value={
                 {
                     user,
+                    loading,
                     signUp,
                     signOut,
                     signIn,
-                    googleSignIn
+                    googleSignIn,
                 }
             }
         >

@@ -1,9 +1,10 @@
 import CenterBox from '../../components/CenterBox';
+import LargeButton from '../../components/LargeButton';
 import './post.sass';
 import { Link } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import NumberFormat from 'react-number-format';
-import { FiUpload } from "react-icons/fi";
+
+
 export default function Post() {
     return (
         <div className='post-content'>
@@ -15,19 +16,10 @@ export default function Post() {
                 </div>
                 <div className="post-content_formarea">
                     <div>
-                        <label className='label-upload' >
-                            <input className='upload' type="file" accept='image/*' />
-                            <span>
-                                <FiUpload color="#fff" size={50} />
-                            </span>
-                        </label>
-                    </div>
-                    <div>
-                        <input type="email" name="email" required id="email" placeholder='E-mail:' />
-                        <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="Contato:" />
+                        <input className='upload' type="file" accept='image/*' />
                         <textarea name="description" cols="30" rows="10" placeholder='Descrição:'></textarea>
+                        <LargeButton>Publicar</LargeButton>
                     </div>
-
                 </div>
             </CenterBox>
         </div>

@@ -47,40 +47,17 @@
 
     .post-content_formarea
         display: flex
-        justify-content: space-between
-        position: absolute
+        flex-direction: column
         width: 450px
         height: 400px
-        left: 70px
-        top: 50px
-        .label-upload
-            background-color: #dfdfdf
-            margin-bottom: 1em
-            border-radius: 50%
-            object-fit: cover
-            width: 180px
-            height: 180px
-            display: flex
-            justify-content: center
-            align-items: center
-            flex-direction: column
-            cursor: pointer
-            input.upload
-                display: none
-            span
-                z-index: 99
-                position: absolute
-                opacity: 0.7
-                transition: all 0.5s
-                &:hover
-                    opacity: 1
-                    transform: scale(1.2)
+        left: 50px
+        top: 100px
         textarea
-            width: 450px
+            width: 430px
             height: 220px
             padding: 8px
             margin-top: 1rem
-            right: 10rem
+            margin-bottom: 1rem
             border-radius: 5px
             resize: none
             border: 2px solid #097969
@@ -94,9 +71,8 @@
             &:focus
                 outline-color: #00A36C !important
         input
-            margin: 1rem 0rem 0rem 2rem
             box-sizing: border-box
-            width: 270px
+            width: 450px
             height: 60px
             background: #FFFFFF
             border: 2px solid #097969
@@ -108,6 +84,3 @@
             line-height: 21px
             margin-bottom: 1rem
             padding: 8px
-            z-index: 1
-            &:focus
-                outline-color: #00A36C !important

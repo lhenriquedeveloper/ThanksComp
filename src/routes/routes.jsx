@@ -2,6 +2,8 @@ import { Routes as Router, Route } from "react-router-dom"
 import { lazy, Suspense, useContext } from "react"
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import ClipLoader from "react-spinners/ClipLoader";
+import './loading.sass';
 
 
 const Login = lazy(() => import('../pages/Login'));
@@ -27,8 +29,8 @@ export default function Routes() {
     return (
         <div>
             <Suspense fallback={
-                <div>
-                    <h1>Loading...</h1>
+                <div className="loading_screen">
+                    <ClipLoader color={'#00FA9A'} size={150} />
                 </div>
             }>
                 <Router>

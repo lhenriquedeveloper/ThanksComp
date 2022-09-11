@@ -8,10 +8,11 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import LoginScreen from '../../assets/imgs/loginscreen.svg';
 import TC from '../../assets/imgs/logotc.svg';
+import { PulseLoader } from 'react-spinners';
 
 export default function Login() {
     const navigate = useNavigate();
-    const { signIn, googleSignIn } = useContext(AuthContext);
+    const { signIn, googleSignIn, loading } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,7 +31,6 @@ export default function Login() {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,
-                icon: "⚠️",
                 draggable: "true"
             });
 
@@ -54,7 +54,7 @@ export default function Login() {
                     <input type="password" name="password" id="password" value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder='Digite sua senha:' />
                     <div className='btn-box'>
                         <div className='register-btn'><SmallButton name="Cadastrar" dothis={() => { navigate("/register") }} /></div>
-                        <div className='login-btn'><SmallButton name="Logar" dothis={handleSubmit} /></div>
+                        <div className='login-btn'><SmallButton name={loading ? <PulseLoader color={'#fff'} size={14} /> : 'Logar'} dothis={handleSubmit} /></div>
                     </div>
                     <LargeButton dothis={handleGoogleSubmit} name="Continuar com o Google">
                         <SiGoogle size={24} className='google-icon' />
