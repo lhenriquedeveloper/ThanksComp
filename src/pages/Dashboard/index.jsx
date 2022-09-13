@@ -37,10 +37,8 @@ export default function Dashboard() {
         })
     }
 
-
-
     return (
-        <div>
+        <>
             <Header />
             <div className="nav">
                 <div className="nav_publibtn">
@@ -67,7 +65,6 @@ export default function Dashboard() {
                     }
                 </div>
             </div>
-        </div>
-
+        </>
     )
 }
