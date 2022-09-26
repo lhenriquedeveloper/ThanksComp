@@ -60,6 +60,7 @@ export default function Register() {
                         <NumberFormat type='text' format="+55 (##) #####-####" mask="_" placeholder="Contato:" value={number} onChange={e => { setNumber(e.target.value) }} />
                         <input className='city-input' type="text" required name="city" id="city" placeholder='Cidade:' value={city} onChange={(e) => { setCity(e.target.value) }} />
                         <input className='uf-input' maxLength="2" type="text" required name="uf" id="uf" placeholder='UF:' value={uf} onChange={(e) => { setUf(e.target.value) }} />
+                        <input className='check-input' type="checkbox" required></input><span>Aceito os termos de uso da aplicação</span>
                         <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Cadastrar'} dothis={handleSubmit} />
                     </div>
                 </CenterBox>
