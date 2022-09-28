@@ -1,77 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap')
-.nav_publibtn
-    position: absolute
-    left: 374px
-    top: 32px
 .nav_logoutbtn
-    position: absolute
-    left: 573px
-    top: 33px
-    button
-        width: 55px
-        height: 50px
-        border: 1px solid #097969
-        border-radius: 8px
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
-        transition: ease-in-out 0.8s
-        &:hover
-            border: 1px solid red
-            svg
-                color: red
+    padding-top: 1rem
+    display: flex
+    flex-direction: row-reverse
+    justify-content: center
+    align-items: center
+button.logout
+    margin: 1rem
+    cursor: pointer
+    width: 55px
+    height: 50px
+    border: 1px solid #097969
+    border-radius: 8px
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    transition: ease-in-out 0.8s
+    &:hover
+        border: 1px solid red
         svg
-            transition: ease-in-out 0.8s
-            color: #00A000
+            color: red
+    svg
+        transition: ease-in-out 0.8s
+        color: #00A000
 .content_cards
-    position: absolute
-    left: 600px
-    top: 80px
+    display: flex
+    justify-content: center
+    align-items: center
+    align-content: center
+    flex-direction: column
+    flex-wrap: nowrap
     article
+        display: flex
         border-radius: 8px
-        margin-top: 45px
+        margin-top: 3rem
         margin-bottom: 45px
-        width: 545px
-        height: 315px
+        width: 550px
+        height: 360px
         background: #AFE1AF
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+        align-content: center
+        flex-direction: column
+    h2
+        display: flex
+        align-content: center
+        justify-content: center
+        margin: 5px
+        font-family: 'Poppins', sans-serif
+        font-style: italic
     img
-        margin-top: 1rem
-        width: 300px
-        height: 188px
-        border: 1px solid rgba(0, 0, 0, 0.4)
-    strong
-        position: absolute
-        left: 70.35%
-        right: 11.05%
-        top: 79.3%
-        bottom: 16.24%
-        font-family: 'Roboto'
-        font-style: normal
-        font-weight: 700
-        font-size: 14px
-        line-height: 14px
-        text-transform: uppercase
-        color: #41414D
-    p
-        position: absolute
-        left: 70.35%
-        right: 9.94%
-        top: 85.03%
-        bottom: 7.32%
-        font-family: 'Roboto'
-        font-style: normal
-        font-weight: 400
-        font-size: 18px
-        line-height: 24px
-        color: #737380
+        margin-top: 10px
+        display: block
+        margin-left: auto
+        margin-right: auto
+        margin-bottom: 1rem
+        width: 330px
+        height: 200px
+        border: 2px solid rgba(0, 0, 0, 0.4)
     button
+        align-self: center
+        margin: 0rem 12.5rem
+        margin-top: 18rem
         font-family: 'Comfortaa', cursive
         position: absolute
         width: 143px
         height: 44px
-        left: 43px
-        top: 240px
         background: #097969
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)
         border: none
@@ -105,13 +98,13 @@
     background-color: #fff
     padding: 10px
     border-radius: 5px
-h1
+h1.h1modal
     display: flex
     justify-content: center
     color: #42464D
     margin-bottom: 1rem
     font-family: 'Poppins', sans-serif
-img
+img.imgmodal
     display: flex
     margin-left: 7.5rem
     margin-bottom: 2rem
