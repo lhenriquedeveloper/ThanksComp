@@ -43,7 +43,6 @@ export default function Dashboard() {
         })
     }
 
-<<<<<<< HEAD
     function openModal() {
         setIsOpen(true);
     }
@@ -52,8 +51,6 @@ export default function Dashboard() {
         setIsOpen(false);
     }
 
-=======
->>>>>>> e6cabed17188a0daf91b15d429d79a608a52d58d
     return (
         <>
             <Header />
