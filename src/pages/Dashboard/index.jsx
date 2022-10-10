@@ -2,7 +2,7 @@ import './dashboard.sass'
 import WhatsBtn from '../../assets/imgs/WhatsAppButtonGreenMedium.svg'
 import Header from "../../components/Header"
 import SmallButton from '../../components/SmallButton'
-import { AiOutlinePoweroff } from "react-icons/ai"
+import { AiOutlinePoweroff, AiOutlineClose } from "react-icons/ai"
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth'
@@ -87,7 +87,7 @@ export default function Dashboard() {
                                         <p className='pmodal'><strong>Email: </strong>{data.email}</p>
                                         <a target="blank"
                                             href={`https://wa.me/${whatsRegex}`}><img src={WhatsBtn} alt="ChatWhatsButton" /></a>
-                                        <button className='modal-close-btn' onClick={closeModal}>Fechar</button>
+                                        <button className='modal-close-btn' onClick={closeModal}><AiOutlineClose size={20} /></button>
                                     </Modal>
                                 </article>
                             );
