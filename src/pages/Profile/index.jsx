@@ -7,6 +7,7 @@ import "./profile.sass";
 
 export default function Profile() {
     const { user } = useContext(AuthContext);
+    console.log(user);
     return (
         <>
             <Header />
@@ -30,7 +31,7 @@ export default function Profile() {
                         <label htmlFor="phoneNumber">Contato:</label> <br />
                         <input
                             type="text"
-                            value={"#"}
+                            value={user.phoneNumber}
                         />
 
                         <label htmlFor="city">Cidade:</label> <br />

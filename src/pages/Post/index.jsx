@@ -6,6 +6,8 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AuthContext } from '../../contexts/auth';
 import { useContext, useState } from 'react';
 import firebase from '../../services/firebaseConnection';
+import { toast } from 'react-toastify';
+import { PulseLoader } from 'react-spinners';
 
 export default function Post() {
     const { user } = useContext(AuthContext);
@@ -22,7 +24,22 @@ export default function Post() {
 
     async function handleSend() {
         setLoading(true);
+        if (img === null, title === '', description === '') {
+            toast.info('Preencha todos os campos!', {
+                theme: 'colored',
+                position: "top-left",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: "true",
+            });
+            setLoading(false);
+            return;
+        }
         const userInfo = user;
+
+        const numberRef = await firebase.firestore().collection('users').doc(userInfo.uid).get();
+        console.log(numberRef);
         const sendTask = await firebase.storage().ref(`images/${user.uid}/${img.name}`)
             .put(img)
             .then(async () => {
@@ -38,14 +55,21 @@ export default function Post() {
                                 imgUrl: urlImg,
                                 userUid: userInfo.uid,
                                 email: userInfo.email,
-                                number: userInfo.number,
+                                number: numberRef,
                                 responsible: userInfo.displayName,
                             })
 
                     })
                     .then(() => {
                         setLoading(false);
-                        alert('Postagem enviada com sucesso!');
+                        toast.success('Postagem enviada com sucesso!', {
+                            theme: 'colored',
+                            position: "top-left",
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: "true",
+                        });
                     })
             })
     }
@@ -64,7 +88,7 @@ export default function Post() {
                         <input className='upload' type="file" accept='image/*' onChange={(e) => { handleFile(e) }} />
                         <input type="text" placeholder='Título do Componente' value={title} onChange={(e) => { setTitle(e.target.value) }} />
                         <textarea name="description" cols="30" rows="10" placeholder='Descrição:' value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
-                        <LargeButton dothis={() => { handleSend() }}>Publicar</LargeButton>
+                        <LargeButton dothis={() => { handleSend() }} name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Publicar'} />
                     </div>
                 </div>
             </CenterBox>

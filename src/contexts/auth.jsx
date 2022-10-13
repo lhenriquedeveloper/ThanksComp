@@ -59,12 +59,12 @@ function AuthProvider({ children }) {
                 let uid = value.user.uid;
                 await value.user.updateProfile({
                     displayName: fullname,
-                    phoneNumber: number,
                 })
                 await firebase.firestore().collection('users')
                     .doc(uid).set({
                         uf: uf,
                         city: city,
+                        number: number,
                     })
                     .then(() => {
                         toast.success('Cadastro realizado com sucesso!', {

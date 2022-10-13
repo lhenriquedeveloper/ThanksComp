@@ -16,6 +16,7 @@ export default function Dashboard() {
     const { signOut } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalData, setModalData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,10 +44,6 @@ export default function Dashboard() {
         })
     }
 
-    function openModal() {
-        setIsOpen(true);
-    }
-
     function closeModal() {
         setIsOpen(false);
     }
@@ -64,29 +61,30 @@ export default function Dashboard() {
                 <div className="content_cards">
                     {
                         data.map((data, index) => {
-                            const whatsRegex = data.number.replace(/[^\d]+/g, "");
-                            console.log(data);
                             return (
                                 <article key={index}>
                                     <h2>{data.title}</h2>
                                     <img src={data.imgUrl} alt="Componente" />
-                                    <button onClick={openModal}>Ver Publi.</button>
-                                    <Modal
+                                    <button onClick={() => {
+                                        setIsOpen(true);
+                                        setModalData(data);
+                                    }}>Ver Publi.</button>
+                                    <Modal key={index}
                                         isOpen={modalIsOpen}
                                         onRequestClose={closeModal}
                                         contentLabel="Component-Modal"
                                         overlayClassName="modal-overlay"
                                         className="modal-content"
                                     >
-                                        <h1 className='h1modal'>{data.title}</h1>
-                                        <img className='imgmodal' src={data.imgUrl} alt="Componente" />
+                                        <h1 className='h1modal'>{modalData.title}</h1>
+                                        <img className='imgmodal' src={modalData.imgUrl} alt="Componente" />
                                         <h2>Descrição do Componente: </h2>
-                                        <p className='pmodal'>{data.description}</p>
-                                        <p className='pmodal'><strong>Responsável: </strong>{data.responsible}</p>
-                                        <p className='pmodal'><strong>Contato: </strong>{data.number}</p>
-                                        <p className='pmodal'><strong>Email: </strong>{data.email}</p>
+                                        <p className='pmodal'>{modalData.description}</p>
+                                        <p className='pmodal'><strong>Responsável: </strong>{modalData.responsible}</p>
+                                        <p className='pmodal'><strong>Contato: </strong>{modalData.number}</p>
+                                        <p className='pmodal'><strong>Email: </strong>{modalData.email}</p>
                                         <a target="blank"
-                                            href={`https://wa.me/${whatsRegex}`}><img src={WhatsBtn} alt="ChatWhatsButton" /></a>
+                                            href={`https://wa.me/${modalData.number}`}><img src={WhatsBtn} alt="ChatWhatsButton" /></a>
                                         <button className='modal-close-btn' onClick={closeModal}><AiOutlineClose size={20} /></button>
                                     </Modal>
                                 </article>
