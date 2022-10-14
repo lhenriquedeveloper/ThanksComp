@@ -22,6 +22,8 @@ export default function Post() {
         }
     }
 
+
+
     async function handleSend() {
         setLoading(true);
         if (img === null, title === '', description === '') {
@@ -38,8 +40,12 @@ export default function Post() {
         }
         const userInfo = user;
 
-        const numberRef = await firebase.firestore().collection('users').doc(userInfo.uid).get();
-        console.log(numberRef);
+        //Cathing number from Cloud Firestore User
+        const numberRef = await firebase.firestore().collection('users').doc(userInfo.uid).get().then((doc) => {
+            const number = doc.data().number;
+            return number;
+        })
+
         const sendTask = await firebase.storage().ref(`images/${user.uid}/${img.name}`)
             .put(img)
             .then(async () => {

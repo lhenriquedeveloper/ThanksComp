@@ -61,6 +61,7 @@ export default function Dashboard() {
                 <div className="content_cards">
                     {
                         data.map((data, index) => {
+                            const WhatsRegex = modalData.number?.replace(/[^0-9]/g, '');
                             return (
                                 <article key={index}>
                                     <h2>{data.title}</h2>
@@ -84,7 +85,7 @@ export default function Dashboard() {
                                         <p className='pmodal'><strong>Contato: </strong>{modalData.number}</p>
                                         <p className='pmodal'><strong>Email: </strong>{modalData.email}</p>
                                         <a target="blank"
-                                            href={`https://wa.me/${modalData.number}`}><img src={WhatsBtn} alt="ChatWhatsButton" /></a>
+                                            href={`https://wa.me/${WhatsRegex}`}><img src={WhatsBtn} alt="ChatWhatsButton" /></a>
                                         <button className='modal-close-btn' onClick={closeModal}><AiOutlineClose size={20} /></button>
                                     </Modal>
                                 </article>
