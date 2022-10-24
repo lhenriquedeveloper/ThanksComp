@@ -40,10 +40,7 @@ export default function Profile() {
 
     async function handleUpdateProfile() {
         setLoading(true);
-        if (img === null) {
-            // Null Field Tratement
-        }
-        const sendUpdate = await firebase.storage().ref(`profileImg/${user.uid}/${img.name}`)
+        await firebase.storage().ref(`profileImg/${user.uid}/${img.name}`)
             .put(img)
             .then(async () => {
                 await firebase.storage().ref(`profileImg/${user.uid}`)
@@ -113,7 +110,7 @@ export default function Profile() {
                             value={uf}
                             onChange={(e) => { setUf(e.target.value) }}
                         />
-                        <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Atualize seus Dados'} dothis={() => { handleUpdateProfile() }} />
+                        <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Atualize seus Dados'} dothis={() => { handleUpdateProfile }} />
                     </div>
                 </div>
             </form>
