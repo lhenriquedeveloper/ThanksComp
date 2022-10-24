@@ -38,7 +38,8 @@ export default function Profile() {
         loadProfileFirestore();
     }, [])
 
-    async function handleUpdateProfile() {
+    async function handleUpdateProfile(e) {
+        e.preventDefault();
         setLoading(true);
         await firebase.storage().ref(`profileImg/${user.uid}/${img.name}`)
             .put(img)
@@ -80,7 +81,7 @@ export default function Profile() {
                 <div className="profile_box">
                     <div className="profile_content">
                         <label htmlFor="email">Foto de Perfil:</label> <br />
-                        <input className='upload' type="file" onChange={() => { handleFile(e) }} accept='image/*' />
+                        <input className='upload' type="file" onChange={handleFile} accept='image/*' />
                         <label htmlFor="email">Email:</label> <br />
                         <input
                             type="text"
@@ -110,7 +111,7 @@ export default function Profile() {
                             value={uf}
                             onChange={(e) => { setUf(e.target.value) }}
                         />
-                        <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Atualize seus Dados'} dothis={() => { handleUpdateProfile }} />
+                        <LargeButton name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Atualize seus Dados'} dothis={handleUpdateProfile} />
                     </div>
                 </div>
             </form>
