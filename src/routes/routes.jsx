@@ -38,6 +38,7 @@ export default function Routes() {
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/dash" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route exact path="/post" element={<ProtectedRoute><Post /></ProtectedRoute>} />
+                    <Route exact path="/post/:id" element={<ProtectedRoute><Post /></ProtectedRoute>} />
                     <Route exact path="/myposts" element={<ProtectedRoute><MyPosts /></ProtectedRoute>} />
                     <Route exact path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route exact path="*" element={<NotFound />} />

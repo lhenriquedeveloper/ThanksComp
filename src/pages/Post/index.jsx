@@ -1,20 +1,46 @@
 import CenterBox from '../../components/CenterBox';
 import LargeButton from '../../components/LargeButton';
 import './post.sass';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AuthContext } from '../../contexts/auth';
 import { useContext, useState } from 'react';
 import firebase from '../../services/firebaseConnection';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useEffect } from 'react';
 
 export default function Post() {
+    const { id } = useParams();
     const { user } = useContext(AuthContext);
     const [description, setDescription] = useState('');
     const [title, setTitle] = useState('');
     const [img, setImg] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [editing, setEditing] = useState(false);
+
+
+    useEffect(() => {
+        if (id) {
+            setEditing(true);
+            loadId(id);
+        }
+    }, []);
+
+    async function loadId(id) {
+        await firebase.firestore().collection('posts').doc(id).get()
+            .then((snapshot) => {
+                setTitle(snapshot.data().title);
+                setDescription(snapshot.data().description);
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Erro ao carregar o post!');
+            })
+    }
+
+
+
 
     function handleFile(e) {
         if (e.target.files && e.target.files.length > 0) {
@@ -25,7 +51,6 @@ export default function Post() {
 
 
     async function handleSend() {
-        setLoading(true);
         if (img === null, title === '', description === '') {
             toast.info('Preencha todos os campos!', {
                 theme: 'colored',
@@ -38,8 +63,39 @@ export default function Post() {
             setLoading(false);
             return;
         }
-        const userInfo = user;
+        setLoading(true);
 
+        if (editing) {
+            await firebase.firestore().collection('posts').doc(id).update({
+                title: title,
+                description: description,
+            })
+                .then(() => {
+                    toast.success('Post atualizado com sucesso!', {
+                        theme: 'colored',
+                        position: "top-left",
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: "true",
+                    });
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error('Erro ao atualizar o post!', {
+                        theme: 'colored',
+                        position: "top-left",
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: "true",
+                    });
+                    setLoading(false);
+                })
+        }
+
+        const userInfo = user;
         //Cathing number from Cloud Firestore User
         const numberRef = await firebase.firestore().collection('users').doc(userInfo.uid).get().then((doc) => {
             const number = doc.data().number;
@@ -94,7 +150,7 @@ export default function Post() {
                         <input className='upload' type="file" accept='image/*' onChange={(e) => { handleFile(e) }} />
                         <input type="text" placeholder='Título do Componente' value={title} onChange={(e) => { setTitle(e.target.value) }} />
                         <textarea name="description" cols="30" rows="10" placeholder='Descrição:' value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
-                        <LargeButton dothis={() => { handleSend() }} name={loading ? <PulseLoader color={'#fff'} size={12} /> : 'Publicar'} />
+                        <LargeButton dothis={() => { handleSend() }} name={loading ? <PulseLoader color={'#fff'} size={12} /> : editing ? "Editar Publicação" : "Publicar"} />
                     </div>
                 </div>
             </CenterBox>
