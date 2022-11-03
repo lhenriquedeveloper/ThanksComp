@@ -66,33 +66,33 @@ export default function Post() {
         setLoading(true);
 
         if (editing) {
-            await firebase.firestore().collection('posts').doc(id).update({
-                title: title,
-                description: description,
-            })
-                .then(() => {
-                    toast.success('Post atualizado com sucesso!', {
-                        theme: 'colored',
-                        position: "top-left",
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: "true",
-                    });
-                    setLoading(false);
+            await firebase.storage().ref(`images/${user.uid}/${img.name}`)
+                .put(img)
+                .then(async () => {
+                    await firebase.storage().ref(`images/${user.uid}`)
+                        .child(img.name).getDownloadURL()
+                        .then(async (url) => {
+                            let urlImg = url;
+                            await firebase.firestore().collection('posts').doc(id).update({
+                                title: title,
+                                description: description,
+                                imgUrl: urlImg,
+                            })
+                                .then(() => {
+                                    setLoading(false);
+                                    toast.success('Post atualizado com sucesso!', {
+                                        theme: 'colored',
+                                        position: "top-left",
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: false,
+                                        draggable: "true",
+                                    });
+                                });
+
+                        })
                 })
-                .catch((error) => {
-                    console.log(error);
-                    toast.error('Erro ao atualizar o post!', {
-                        theme: 'colored',
-                        position: "top-left",
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: "true",
-                    });
-                    setLoading(false);
-                })
+            return;
         }
 
         const userInfo = user;
